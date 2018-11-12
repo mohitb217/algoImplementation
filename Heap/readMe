@@ -1,0 +1,10 @@
+Implemented:
+  max-heapify
+  build-max-heap
+  heap-sort
+  
+Priority Queue:
+  max-heap-insert
+  heap-extract-max
+  heap-increase-key
+  heap-maximun
