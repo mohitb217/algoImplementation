@@ -1,12 +1,10 @@
 Implemented:
-  max-heapify
-  build-max-heap
-  heap-sort
-  max-heap-insert
-  heap-extract-max
-  heap-increase-key
-  heap-maximun
+  max-heapify       TimeComplexity:O(log n)         
+  build-max-heap    TimeComplexity:O(n)
+  heap-sort         TimeComplexity:O(nlog n)
+  max-heap-insert   TimeComplexity:O(n)
+  heap-extract-max  TimeComplexity:O(log n)
+  heap-increase-key TimeComplexity:O(log h)
+  heap-maximun      TimeComplexity:O(log n)
 
-This code has some logical error.
-
-  
+The code committed has some logical error.
