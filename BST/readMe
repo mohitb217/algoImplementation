@@ -1,2 +1,7 @@
 I have implemented bst insertion,deletion using recursion.
 Also inOrder,preOrder,postOrder traversal.
+
+Time Complexity: 
+  Insertion - WorstCase:O(n)      AverageCase: O(log h)
+  Deletion -  WorstCase:O(n)      AverageCase: O(log h)
+  AnyTraversal - O(n)
