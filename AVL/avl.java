@@ -42,17 +42,24 @@ class avl{
 		int balance = getBalance(node);
 
 		if(balance>1 && data<node.left.data){
+			System.out.println("LEFT  LEFT CASE");
+
 			return rightRotate(node);
 		}
 		if(balance<-1 && data>node.right.data){
+			System.out.println("RIGHT RIGHT CASE");
+
 			return leftRotate(node);
 		}
 		if(balance>1 && data>node.left.data){
 			node.left = leftRotate(node.left);
+			System.out.println("LEFT RIGHT CASE");
 			return rightRotate(node);
 		}
 		if(balance<-1 && data<node.right.data){
 			node.right = rightRotate(node.right);
+			System.out.println("RIGHT LEFT CASE");
+
 			return leftRotate(node);
 		}
 		return node;
@@ -121,6 +128,110 @@ class avl{
 		printPostorderLoop(root);
 	}
 
+	boolean balanceCheck(){
+		boolean result = balanceCheckloop(root,true);
+		return result;
+	}
+
+	boolean balanceCheckloop(node curr,boolean check){
+		if(curr!=null && check==true){
+			balanceCheckloop(curr.left,check);
+			if( curr.height!= (1) || curr.height!= (-1) || curr.height!= (0) ){
+				check = false;
+			}
+			balanceCheckloop(curr.right,check);
+
+		}
+		else if(check==false){
+			return false;
+		}
+		return true;
+	}
+
+	void delete(int data){
+		deleteLoop(root,data);
+	}
+
+	node deleteLoop(node curr,int data){
+		if(curr==null){
+			return null;
+		}
+		if(curr.data>data){
+			curr.left = deleteLoop(curr.left,data);
+		}
+		else if(curr.data<data){
+			curr.right = deleteLoop(curr.right,data);
+		}
+		else{
+			if(curr.left==null || curr.right == null){
+				node temp = null;
+
+				if(curr.left==null){
+					temp = curr.right;
+				}
+				else{
+					temp = curr.left;
+				}
+
+				if(temp ==null){
+					temp = curr;
+					curr = null;
+				}
+				else{
+					curr = temp;
+				}
+			}
+			else{
+				node temp = minValueNode(curr.right);
+
+				curr.data = temp.data;
+
+				curr.right = deleteLoop(curr.right,temp.data);
+			}
+		}
+
+		if(curr==null){
+			return null;
+		}
+
+		curr.height = 1 + Math.max(height(curr.left),height(curr.right));
+
+		int balance = getBalance(curr);
+
+		if(balance>1 && data<curr.left.data){
+			System.out.println("LEFT  LEFT CASE");
+
+			return rightRotate(curr);
+		}
+		if(balance<-1 && data>curr.right.data){
+			System.out.println("RIGHT RIGHT CASE");
+
+			return leftRotate(curr);
+		}
+		if(balance>1 && data>curr.left.data){
+			curr.left = leftRotate(curr.left);
+			System.out.println("LEFT RIGHT CASE");
+			return rightRotate(curr);
+		}
+		if(balance<-1 && data<curr.right.data){
+			curr.right = rightRotate(curr.right);
+			System.out.println("RIGHT LEFT CASE");
+
+			return leftRotate(curr);
+		}
+		return curr;
+	}
+
+
+
+	node minValueNode(node node)  
+    {  
+        node current = node;  
+        while (current.left != null)  
+        	current = current.left;  
+  
+        return current;  
+    } 
 
 	public static void main(String[] args) {
 		avl tree = new avl();
@@ -128,12 +239,20 @@ class avl{
 		tree.insert(20);
 		tree.insert(30);
 		tree.insert(40);
+		tree.insert(15);
+		tree.insert(12);
+
+	
 
 		tree.printInorder();
 		System.out.println();
 		tree.printPreorder();
 		System.out.println();
 		tree.printPostorder();
+		System.out.println(tree.balanceCheck());
+		tree.delete(20);
+		System.out.println();
+		tree.printInorder();
 
 	}
 }
